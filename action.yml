@@ -1,0 +1,47 @@
+name: 'DOCKER BUILD AND PUBLISH'
+description: 'Builds and publishes a docker image for a NODEJS project'
+inputs:
+  username:
+    description: 'Docker Hub Username'
+    required: true
+  password:
+    description: 'Docker Hub Password'
+    required: true
+  name:
+    description: 'Product Name'
+    required: true
+  production:
+    description: 'Is this a production build?'
+    type: boolean
+    required: true
+    default: true
+runs:
+  using: "composite"
+  steps:
+  - id: serviceName
+    uses: ASzc/change-string-case-action@v2
+    with:
+      string: ${{ inputs.name }}
+  - name: Login to Docker Hub
+    uses: docker/login-action@master
+    with:
+      username: ${{ inputs.username }}
+      password: ${{ inputs.password }}
+
+  - name: Set up Docker Buildx
+    id: buildx
+    uses: docker/setup-buildx-action@v1
+
+  - name: Build and push PRODUCT
+    id: docker_build_product
+    uses: docker/build-push-action@v2
+    with:
+      context: ./
+      file: .docker/Dockerfile
+      push: true
+      tags: ${{ inputs.username }}/${{ inputs.name }}${{ inputs.production && '' || '-s'}}:latest
+      build-args: |
+        SERVICE_NAME=${{ steps.serviceName.outputs.uppercase }}
+        PROJECT_ENV=${{ inputs.production && 'production' || 'staging' }}
+
+
