@@ -21,9 +21,20 @@ runs:
   - name: Checkout
     uses: actions/checkout@main
     with:
-      repo: 'judahh/dockerBuildAndPublish'
       repository: 'judahh/dockerBuildAndPublish'
-  - name: Show Folder Contents
+  - name: Show Folder Contents 1
+    run: ls
+    shell: bash
+  - name: Back 1
+    run: cd ..
+    shell: bash
+  - name: Show Folder Contents 2
+    run: ls
+    shell: bash
+  - name: Back 2
+    run: cd ..
+    shell: bash
+  - name: Show Folder Contents 3
     run: ls
     shell: bash
   - id: serviceName
@@ -45,7 +56,7 @@ runs:
     uses: docker/build-push-action@v2
     with:
       context: ./
-      file: .docker/Dockerfile
+      file: Dockerfile
       push: true
       tags: ${{ inputs.username }}/${{ inputs.name }}${{ inputs.production && '' || '-s'}}:latest
       build-args: |
