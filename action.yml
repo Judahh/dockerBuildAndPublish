@@ -1,4 +1,4 @@
-name: 'DOCKER BUILD AND PUBLISH'
+name: 'DOCKER NODE BUILD AND PUBLISH'
 description: 'Builds and publishes a docker image for a NODEJS project'
 inputs:
   username:
