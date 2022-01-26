@@ -18,6 +18,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - name: Checkout
+    uses: actions/checkout@main
+    with:
+      repo: 'judahh/dockerBuildAndPublish'
   - id: serviceName
     uses: ASzc/change-string-case-action@v2
     with:
