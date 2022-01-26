@@ -18,6 +18,25 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - name: GET VERSION
+    id: package-version
+    uses: martinbeentjes/npm-get-version-action@master
+  - name: Copy From S3
+    uses: prewk/s3-cp-action@v2
+    with:
+      aws_access_key_id: ${{ secrets.AWS_KEY_ID }}
+      aws_secret_access_key: ${{ secrets.AWS_KEY }}
+      source: s3://${{ secrets.AWS_BUCKET }}/staging/${{ steps.package-version.outputs.current-version }}.zip
+      dest: ./
+  - name: Show Folder Contents After Download
+    run: ls
+    shell: bash
+  - name: Extract some files
+    run: 7z x ${{ steps.package-version.outputs.current-version }}.zip
+    shell: bash
+  - name: Show Folder Contents After Extract
+    run: ls
+    shell: bash
   - name: Checkout
     uses: actions/checkout@main
     with:
@@ -25,6 +44,9 @@ runs:
       path: docker
   - name: Show Folder Contents
     run: ls
+    shell: bash
+  - name: Show Docker Folder Contents
+    run: ls docker
     shell: bash
   - id: serviceName
     uses: ASzc/change-string-case-action@v2
