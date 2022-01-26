@@ -22,6 +22,7 @@ runs:
     uses: actions/checkout@main
     with:
       repository: 'judahh/dockerBuildAndPublish'
+      path: docker
   - name: Show Folder Contents 1
     run: ls
     shell: bash
