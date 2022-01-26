@@ -22,6 +22,8 @@ runs:
     uses: actions/checkout@main
     with:
       repo: 'judahh/dockerBuildAndPublish'
+  - name: Show Folder Contents
+    run: ls
   - id: serviceName
     uses: ASzc/change-string-case-action@v2
     with:
