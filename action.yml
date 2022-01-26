@@ -25,17 +25,11 @@ runs:
   - name: Show Folder Contents 1
     run: ls
     shell: bash
-  - name: Back 1
-    run: cd ..
-    shell: bash
   - name: Show Folder Contents 2
-    run: ls
-    shell: bash
-  - name: Back 2
-    run: cd ..
+    run: ls ..
     shell: bash
   - name: Show Folder Contents 3
-    run: ls
+    run: ls ../..
     shell: bash
   - id: serviceName
     uses: ASzc/change-string-case-action@v2
