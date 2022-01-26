@@ -23,14 +23,8 @@ runs:
     with:
       repository: 'judahh/dockerBuildAndPublish'
       path: docker
-  - name: Show Folder Contents 1
+  - name: Show Folder Contents
     run: ls
-    shell: bash
-  - name: Show Folder Contents 2
-    run: ls ..
-    shell: bash
-  - name: Show Folder Contents 3
-    run: ls ../..
     shell: bash
   - id: serviceName
     uses: ASzc/change-string-case-action@v2
@@ -51,7 +45,7 @@ runs:
     uses: docker/build-push-action@v2
     with:
       context: ./
-      file: Dockerfile
+      file: docker/Dockerfile
       push: true
       tags: ${{ inputs.username }}/${{ inputs.name }}${{ inputs.production && '' || '-s'}}:latest
       build-args: |
