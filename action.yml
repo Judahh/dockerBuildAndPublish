@@ -10,6 +10,9 @@ inputs:
   name:
     description: 'Product Name'
     required: true
+  zip_name:
+    description: 'Zip Name'
+    required: true
   production:
     description: 'Is this a production build?'
     type: boolean
@@ -27,21 +30,21 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - name: GET VERSION
-    id: package-version
-    uses: martinbeentjes/npm-get-version-action@master
+  - name: Show Folder Contents Before Download
+    run: ls
+    shell: bash
   - name: Copy From S3
     uses: prewk/s3-cp-action@v2
     with:
       aws_access_key_id: ${{ inputs.aws_key_id }}
       aws_secret_access_key: ${{ inputs.aws_key }}
-      source: s3://${{ inputs.aws_bucket }}/staging/${{ steps.package-version.outputs.current-version }}.zip
+      source: s3://${{ inputs.aws_bucket }}/staging/${{ inputs.zip_name }}.zip
       dest: ./
   - name: Show Folder Contents After Download
     run: ls
     shell: bash
   - name: Extract some files
-    run: 7z x ${{ steps.package-version.outputs.current-version }}.zip
+    run: 7z x ${{ inputs.zip_name }}.zip
     shell: bash
   - name: Show Folder Contents After Extract
     run: ls
