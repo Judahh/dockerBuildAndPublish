@@ -23,7 +23,6 @@ COPY *package.json ./
 
 # RUN echo "0 0 * * * fuser -k 3000/tcp" >> /etc/cron.d/cronupdate.cron && \
 RUN chmod +x updater.sh && \
-    chmod +x updater.py && \
     apt-get update -y && \
     apt-get install software-properties-common gcc -y && \
     apt-get update -y && \
