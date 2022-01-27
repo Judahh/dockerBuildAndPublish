@@ -14,7 +14,7 @@ RUN chown -R node /usr/src/api && \
     chmod +x -R /usr/src/api && \
     chmod 777 -R /usr/src/api
 
-COPY *updater.sh ./
+COPY docker/*updater.sh ./
 COPY *node_modules ./
 COPY *.next ./
 COPY *public ./
