@@ -15,6 +15,15 @@ inputs:
     type: boolean
     required: true
     default: true
+  aws_key_id:
+    description: 'AWS Key ID'
+    required: true
+  aws_key:
+    description: 'AWS Key'
+    required: true
+  aws_bucket:
+    description: 'AWS Bucket'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -24,9 +33,9 @@ runs:
   - name: Copy From S3
     uses: prewk/s3-cp-action@v2
     with:
-      aws_access_key_id: ${{ secrets.AWS_KEY_ID }}
-      aws_secret_access_key: ${{ secrets.AWS_KEY }}
-      source: s3://${{ secrets.AWS_BUCKET }}/staging/${{ steps.package-version.outputs.current-version }}.zip
+      aws_access_key_id: ${{ inputs.aws_key_id }}
+      aws_secret_access_key: ${{ inputs.aws_key }}
+      source: s3://${{ inputs.aws_bucket }}/staging/${{ steps.package-version.outputs.current-version }}.zip
       dest: ./
   - name: Show Folder Contents After Download
     run: ls
