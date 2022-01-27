@@ -21,20 +21,16 @@ COPY *public ./
 COPY *dist ./
 COPY *package.json ./
 
-# RUN echo "0 0 * * * fuser -k 3000/tcp" >> /etc/cron.d/cronupdate.cron && \
-RUN chmod +x updater.sh && \
-    apt-get update -y && \
+RUN chmod +x updater.sh
+RUN apt-get update -y && \
     apt-get install software-properties-common gcc -y && \
     apt-get update -y && \
     apt-get -y install python3 python3-pip cron musl-dev unzip && \
     alias pip=pip3 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
     pip install --upgrade pip && \
-    pip install xmltodict requests datetime wget && \
-    ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1 && \
-    touch /var/log/cron.log && \
-    groupadd crond-users && \
-    usermod -a -G crond-users node
+    pip install xmltodict requests datetime wget
+RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 USER node
 
