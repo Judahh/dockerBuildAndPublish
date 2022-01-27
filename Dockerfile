@@ -33,9 +33,7 @@ RUN chmod +x updater.sh && \
     pip install --upgrade pip && \
     pip install xmltodict requests datetime wget && \
     ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1 && \
-    chmod 0644 /etc/cron.d/cronupdate.cron && \
     touch /var/log/cron.log && \
-    crontab /etc/cron.d/cronupdate.cron && \
     groupadd crond-users && \
     usermod -a -G crond-users node
 
