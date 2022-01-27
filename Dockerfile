@@ -14,12 +14,12 @@ RUN chown -R node /usr/src/api && \
     chmod +x -R /usr/src/api && \
     chmod 777 -R /usr/src/api
 
-COPY updater.sh ./
-COPY node_modules ./
-COPY .next ./
-COPY public ./
-COPY dist ./
-COPY package.json ./
+COPY *updater.sh ./
+COPY *node_modules ./
+COPY *.next ./
+COPY *public ./
+COPY *dist ./
+COPY *package.json ./
 
 # RUN echo "0 0 * * * fuser -k 3000/tcp" >> /etc/cron.d/cronupdate.cron && \
 RUN chmod +x updater.sh && \
