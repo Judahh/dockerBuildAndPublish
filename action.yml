@@ -12,9 +12,8 @@ inputs:
     required: true
   production:
     description: 'Is this a production build?'
-    type: boolean
     required: true
-    default: true
+    default: 'true'
 runs:
   using: "composite"
   steps:
@@ -36,6 +35,13 @@ runs:
     uses: ASzc/change-string-case-action@v2
     with:
       string: ${{ inputs.name }}
+  - name: 'Set Production:'
+    run: echo "PROD=$(${{ inputs.production == 'true' }} && echo '' || echo '-s')" >> $GITHUB_ENV
+    shell: bash
+  - name: 'Set Production2:'
+    run: echo "PROD2=$(${{ inputs.production == 'true' }} && echo 'production' || echo 'staging')" >> $GITHUB_ENV
+    shell: bash
+
   - name: Login to Docker Hub
     uses: docker/login-action@master
     with:
@@ -53,9 +59,9 @@ runs:
       context: ./
       file: docker/Dockerfile
       push: true
-      tags: ${{ inputs.username }}/${{ inputs.name }}${{ inputs.production && '' || '-s'}}:latest
+      tags: ${{ inputs.username }}/${{ inputs.name }}${{ env.PROD }}:latest
       build-args: |
         SERVICE_NAME=${{ steps.serviceName.outputs.uppercase }}
-        PROJECT_ENV=${{ inputs.production && 'production' || 'staging' }}
+        PROJECT_ENV=${{ env.PROD2 }}
 
 
