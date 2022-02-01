@@ -14,6 +14,10 @@ inputs:
     description: 'Is this a production build?'
     required: true
     default: 'true'
+  platforms:
+    description: 'Platforms to build for'
+    required: true
+    default: 'linux/amd64'
 runs:
   using: "composite"
   steps:
@@ -47,6 +51,12 @@ runs:
     with:
       username: ${{ inputs.username }}
       password: ${{ inputs.password }}
+
+  - name: Set up QEMU
+    id: qemu
+    uses: docker/setup-qemu-action@v1
+    with:
+      platforms: ${{ inputs.platforms }}
 
   - name: Set up Docker Buildx
     id: buildx
