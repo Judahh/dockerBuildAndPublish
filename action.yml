@@ -66,6 +66,7 @@ runs:
     id: docker_build_product
     uses: docker/build-push-action@v2
     with:
+      platforms: ${{ inputs.platforms }}
       context: ./
       file: docker/Dockerfile
       push: true
