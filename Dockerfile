@@ -15,10 +15,10 @@ RUN chown -R node /usr/src/api && \
     chmod 777 -R /usr/src/api
 
 COPY docker/*updater.sh ./
-COPY *node_modules ./
-COPY *.next ./
-COPY *public ./
-COPY *dist ./
+COPY *node_modules ./node_modules
+COPY *.next ./.next
+COPY *public ./public
+COPY *dist ./dist
 COPY *package.json ./
 
 RUN chmod +x updater.sh
