@@ -37,7 +37,7 @@ RUN chmod 777 -R ../api && \
 
 USER node
 
-RUN chmod +x -R ../api
+# RUN chmod +x -R ../api
 
 EXPOSE 3000
 
