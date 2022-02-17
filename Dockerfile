@@ -32,10 +32,12 @@ RUN apt-get update -y && \
     pip install xmltodict requests datetime wget
 RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
-USER node
-
 RUN chmod 777 -R node_modules .next public dist package.json && \
     chmod +x -R node_modules .next public dist package.json
+
+USER node
+
+RUN chmod +x -R node_modules .next public dist package.json
 
 EXPOSE 3000
 
