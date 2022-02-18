@@ -32,7 +32,7 @@ RUN chmod +x updater.sh
     # update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
     # pip install --upgrade pip && \
     # pip install xmltodict requests datetime wget
-RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
+# RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 RUN chmod 777 -R ../api && \
     chmod +x -R ../api
