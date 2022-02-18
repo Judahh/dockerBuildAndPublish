@@ -1,4 +1,5 @@
-FROM node:latest
+ARG  NODE_VERSION=latest
+FROM node:${NODE_VERSION}
 
 ARG PROJECT_URL=https://alpha-ci-deploy.s3.us-east-2.amazonaws.com/
 ARG SERVICE_NAME=AUTH

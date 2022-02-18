@@ -18,6 +18,10 @@ inputs:
     description: 'Platforms to build for'
     required: true
     default: 'linux/amd64'
+  node_version:
+    description: 'Node Version'
+    required: true
+    default: '16.5.0-alpine'
 runs:
   using: "composite"
   steps:
@@ -74,5 +78,6 @@ runs:
       build-args: |
         SERVICE_NAME=${{ steps.serviceName.outputs.uppercase }}
         PROJECT_ENV=${{ env.PROD2 }}
+        NODE_VERSION=${{ inputs.node_version }}
 
 
