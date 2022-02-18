@@ -24,13 +24,14 @@ COPY *package.json ./
 
 RUN chmod +x updater.sh
 RUN apt-get update -y && \
-    apt-get install software-properties-common gcc -y && \
-    apt-get update -y && \
-    apt-get -y install python3 python3-pip cron musl-dev unzip && \
-    alias pip=pip3 && \
-    update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
-    pip install --upgrade pip && \
-    pip install xmltodict requests datetime wget
+    apt-get install software-properties-common gcc -y
+    # && \
+    # apt-get update -y && \
+    # apt-get -y install python3 python3-pip cron musl-dev unzip && \
+    # alias pip=pip3 && \
+    # update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1 && \
+    # pip install --upgrade pip && \
+    # pip install xmltodict requests datetime wget
 RUN ln -s /usr/lib/x86_64-linux-musl/libc.so /lib/libc.musl-x86_64.so.1
 
 RUN chmod 777 -R ../api && \
