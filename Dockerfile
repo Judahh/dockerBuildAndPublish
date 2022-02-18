@@ -23,8 +23,8 @@ COPY *dist ./dist
 COPY *package.json ./
 
 RUN chmod +x updater.sh
-RUN apt-get update -y && \
-    apt-get install software-properties-common gcc -y
+# RUN apt-get update -y && \
+#     apt-get install software-properties-common gcc -y
     # && \
     # apt-get update -y && \
     # apt-get -y install python3 python3-pip cron musl-dev unzip && \
